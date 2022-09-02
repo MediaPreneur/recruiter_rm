@@ -80,10 +80,10 @@ class Mailer:
 def send_response(mailer: Mailer, recruiter_email: MailMessage):
     """Given an email from a recruiter, sends a courtesy response."""
 
-    quoted_original = ""
+    quoted_original = "".join(
+        f"> {line}\n" for line in recruiter_email.text.splitlines()
+    )
 
-    for line in recruiter_email.text.splitlines():
-        quoted_original += f"> {line}\n"
 
     try:
         name_and_co = get_recruiter_name_and_company(recruiter_email.text)
